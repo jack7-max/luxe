@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexo Luxe | Home</title>
+    <style>
+        /* Reset & Basic Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: inline-flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ccc;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('images/luxury-background.jpg') center/cover no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            text-shadow: 0 0 15px #ffd700, 0 0 30px #ffffff;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .shop-now-icon {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .shop-now-icon .btn-glow {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ffd700, #ff8800);
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #ffd700;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .shop-now-icon .btn-glow:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #ffcc00;
+        }
+
+        #homeCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: #000;
+            color: #f8f3f3;
+        }
+
+        .products-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-item {
+            width: 100%;
+            max-width: 350px;
+            background-color: #f5f2f0;
+            border: 1px solid #e6e4e4;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .product-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .product-details {
+            padding: 1rem;
+        }
+
+        .product-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .buy-now {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            margin-top: 1rem;
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .buy-now:hover {
+            background-color: #333;
+            transform: scale(1.05);
+        }
+
+        .product-details span {
+            font-size: 1.2rem;
+            color: #000;
+            font-weight: 700;
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        /* Order Form Section */
+        .order-form-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/livrison.jpg') center/cover no-repeat;
+            color: #fff;
+        }
+
+        #order-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        #order-form input, #order-form button, #order-form select {
+            padding: 0.8rem;
+            font-size: 1rem;
+        }
+
+        #order-form input, #order-form select {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #order-form select, #order-form .sizes {
+            grid-column: span 2;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        #order-form button {
+            grid-column: span 2;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #order-form button:hover {
+            background-color: #333;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #000;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    header>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#order">Orders</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Section -->
+    <main id="home" class="hero">
+        <div class="hero-content">
+            <h1>مرحبًا بك في Nexo Luxe</h1>
+            <p>استمتع بأناقة المنتجات الفاخرة</p>
+        </div>
+        <div class="shop-now-icon">
+            <a href="#products" class="btn-glow">تسوق الآن</a>
+        </div>
+        <canvas id="homeCanvas"></canvas>
+    </main>
+<
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <h2>Our Exclusive Collection</h2>
+        <div class="product-grid">
+            <div class="product-item">
+                <img src="images/ens.jpg" alt="Product 1">
+                <div class="product-details">
+                    <h3>Ensemble Trapstar</h3>
+                    <a href="#order" class="buy-now">إشتري الآن</a>
+                    <span>5.500 DZD</span>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="images/tn2.jpg" alt="Product 2">
+                <div class="product-details">
+                    <h3>Ensemble Corteiz</h3>
+                    <a href="#order" class="buy-now">إشتري الآن</a>
+                    <span>5.500 DZD</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section id="order" class="order-form-section">
+        <h2>
+            <h2>Place Your Order</h2>
+            <form id="order-form">
+                <!-- الاسم -->
+                <input type="text" name="first_name" placeholder="الاسم" required>
+                <!-- اللقب -->
+                <input type="text" name="last_name" placeholder="اللقب" required>
+                <!-- رقم الهاتف -->
+                <input type="tel" name="phone_number" placeholder="رقم الهاتف" required>
+                <!-- العنوان -->
+                <input type="text" name="address" placeholder="العنوان" required>
+    
+                <!-- اختيار المنتج -->
+                <select name="product" required>
+                    <option value="" disabled selected>اختر المنتج المطلوب</option>
+                    <option value="Ensemble Trapstar">Ensemble Trapstar</option>
+                    <option value="Ensemble Corteiz">Ensemble Corteiz</option>
+                </select>
+    
+                <!-- Size Selection -->
+                <div class="sizes">
+                    <label>
+                        <input type="radio" name="size" value="S" required> S
+                    </label>
+                    <label>
+                        <input type="radio" name="size" value="M"> M
+                    </label>
+                    <label>
+                        <input type="radio" name="size" value="L"> L
+                    </label>
+                    <label>
+                        <input type="radio" name="size" value="XL"> XL
+                    </label>
+                </div>
+    
+                <!-- Color Selection -->
+                <div class="color-selection">
+                    <div class="color-option">
+                        <span class="color-box" style="background-color: black;"></span>
+                        <input type="radio" name="color" value="black" required> أسود
+                    </div>
+                    <div class="color-option">
+                        <span class="color-box" style="background-color: white; border: 1px solid #ccc;"></span>
+                        <input type="radio" name="color" value="white"> أبيض
+                    </div>
+                    <div class="color-option">
+                        <span class="color-box" style="background-color: grey;"></span>
+                        <input type="radio" name="color" value="grey"> رمادي
+                    </div>
+                </div>
+    
+                <button type="submit">تأكيد الطلب</button>
+            </form>
+        </section>
+    
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 Nexo Luxe. All Rights Reserved.</p>
+        </footer>
+    
+        <script>
+            const homeCanvas = document.getElementById('homeCanvas');
+            const ctx = homeCanvas.getContext('2d');
+    
+            // Resize the canvas to fit the hero section
+            function resizeCanvas() {
+                homeCanvas.width = window.innerWidth;
+                homeCanvas.height = document.querySelector('.hero').offsetHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+    
+            // Particle Class for Canvas Animation
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+    
+                reset() {
+                    this.x = Math.random() * homeCanvas.width;
+                    this.y = Math.random() * homeCanvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speed = Math.random() * 2 + 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.5;
+                }
+    
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                    ctx.fill();
+                }
+    
+                update() {
+                    this.y += this.speed;
+                    if (this.y > homeCanvas.height) this.reset();
+                }
+            }
+    
+            const particles = Array.from({ length: 150 }, () => new Particle());
+    
+            // Animate particles
+            function animateParticles() {
+                ctx.clearRect(0, 0, homeCanvas.width, homeCanvas.height);
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+    
+            animateParticles();
+    
+            // Form submission with Telegram Bot integration
+            const BOT_TOKEN = "YOUR_BOT_TOKEN"; // Replace with your Bot Token
+            const CHAT_ID = "YOUR_CHAT_ID"; // Replace with your Chat ID
+    
+            document.getElementById("order-form").addEventListener("submit", function(event) {
+                event.preventDefault();
+    
+                const formData = new FormData(this);
+                const orderData = {
+                    "الاسم": formData.get("first_name"),
+                    "اللقب": formData.get("last_name"),
+                    "رقم الهاتف": formData.get("phone_number"),
+                    "العنوان": formData.get("address"),
+                    "المنتج": formData.get("product"),
+                    "المقاس": formData.get("size"),
+                    "اللون": formData.get("color")
+                };
+    
+                let message = "طلب جديد 📦\n\n";
+                for (const [key, value] of Object.entries(orderData)) {
+                    message += `*${key}*: ${value}\n`;
+                }
+    
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message,
+                        parse_mode: "Markdown"
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert("تم إرسال الطلب بنجاح!");
+                        this.reset();
+                    } else {
+                        alert("حدث خطأ أثناء إرسال الطلب.");
+                    }
+                })
+                .catch(error => {
+                    alert("تعذر الاتصال بتلغرام.");
+                    console.error(error);
+                });
+            });
+        </script>
+    </body>
+    </html>
+    
